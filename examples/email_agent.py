@@ -1,7 +1,8 @@
-from agents import Agent, RunConfig, Runner
+from agents import Agent, Runner
 from arcadepy import AsyncArcade
 
 from agents_arcade import get_arcade_tools
+from agents_arcade.errors import AuthorizationError
 
 
 async def main():
@@ -15,15 +16,15 @@ async def main():
         tools=tools,
     )
 
-    result = await Runner.run(
-        starting_agent=google_agent,
-        input="What are my latest emails?",
-        context={"user_id": "user@example.com3"},
-        run_config=RunConfig(
-            tracing_disabled=True,
-        ),
-    )
-    print("Final output:\n\n", result.final_output)
+    try:
+        result = await Runner.run(
+            starting_agent=google_agent,
+            input="What are my latest emails?",
+            context={"user_id": "user@example.com"},
+        )
+        print("Final output:\n\n", result.final_output)
+    except AuthorizationError as e:
+        print("Please Login to Google:", e)
 
 
 if __name__ == "__main__":
