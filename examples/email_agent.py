@@ -1,4 +1,4 @@
-from agents import Agent Runner
+from agents import Agent, Runner
 from arcadepy import AsyncArcade
 
 from agents_arcade import get_arcade_tools
