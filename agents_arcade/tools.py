@@ -1,5 +1,6 @@
 import json
 from functools import partial
+from typing import Any
 
 from agents.run_context import RunContextWrapper
 from agents.tool import FunctionTool
@@ -26,10 +27,12 @@ async def _authorize_tool(client: AsyncArcade, context: RunContextWrapper, tool_
 
 
 async def _async_invoke_arcade_tool(
-    context: RunContextWrapper, tool_args: str, tool_name: str, requires_auth: bool
+    context: RunContextWrapper,
+    tool_args: str,
+    tool_name: str,
+    requires_auth: bool,
+    client: AsyncArcade,
 ):
-    client = await get_arcade_client()
-
     args = json.loads(tool_args)
     if requires_auth:
         await _authorize_tool(client, context, tool_name)
@@ -47,8 +50,14 @@ async def _async_invoke_arcade_tool(
 
 
 async def get_arcade_tools(
-    client: AsyncArcade, toolkits: list[str], tools: list[str] | None = None
+    client: AsyncArcade | None = None,
+    toolkits: list[str] | None = None,
+    tools: list[str] | None = None,
+    **kwargs: dict[str, Any],
 ) -> list[FunctionTool]:
+    if not client:
+        client = get_arcade_client(**kwargs)
+
     tool_formats = await client.tools.formatted.list(toolkit=toolkits, format="openai")
     auth_spec = await _get_arcade_tool_definitions(client, toolkits, tools)
 
@@ -66,6 +75,7 @@ async def get_arcade_tools(
                 _async_invoke_arcade_tool,
                 tool_name=tool_name,
                 requires_auth=requires_auth,
+                client=client,
             ),
             strict_json_schema=False,
         )

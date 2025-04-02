@@ -1,0 +1,74 @@
+site_name: Agents Arcade
+site_description: Arcade Integration for OpenAI Agents
+site_url: https://docs.arcadeai.dev/agents-arcade/
+repo_url: https://github.com/ArcadeAI/agents-arcade
+repo_name: ArcadeAI/agents-arcade
+
+theme:
+  name: material
+  logo: https://docs.arcade.dev/images/logo/arcade-logo.png
+  favicon: https://docs.arcade.dev/images/logo/arcade-logo.png
+  palette:
+    primary: indigo
+    accent: indigo
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - navigation.indexes
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - footnotes
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [agents_arcade]
+          options:
+            show_source: false
+            show_root_heading: true
+            heading_level: 3
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - getting-started/installation.md
+      - getting-started/quickstart.md
+      - getting-started/authentication.md
+  - Guides:
+      - guides/toolkits.md
+      - guides/error-handling.md
+      - guides/custom-usage.md
+  - Examples:
+      - examples/github.md
+      - examples/email.md
+      - examples/multi-toolkit.md
+  - API Reference:
+      - api/tools.md
+      - api/utils.md
+      - api/errors.md
+  - Contributing: contributing.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ArcadeAI/agents-arcade
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/agents-arcade/

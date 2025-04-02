@@ -6,7 +6,7 @@ from agents_arcade.errors import AuthorizationError
 
 
 async def main():
-    client = AsyncArcade()
+    client = AsyncArcade(api_key="arc_o1SX4VZ563zrDz1oJGgdtfUHFH8FAtvD8JSrxoTjxmsaNo4eap3H")
     # Use the "github" toolkit for this example
     # You can use other toolkits like "google", "linkedin", "x", etc.
     tools = await get_arcade_tools(client, ["github"])
