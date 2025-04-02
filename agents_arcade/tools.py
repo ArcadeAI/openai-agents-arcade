@@ -67,23 +67,22 @@ async def get_arcade_tools(
 
     tool_functions = []
     for tool in tool_formats.items:
-        if tool["function"]["name"] not in tools:
-            continue
-        tool_name = tool["function"]["name"]
-        tool_description = tool["function"]["description"]
-        tool_params = tool["function"]["parameters"]
-        requires_auth = auth_spec.get(tool_name, False)
-        tool_function = FunctionTool(
-            name=tool_name,
-            description=tool_description,
-            params_json_schema=tool_params,
-            on_invoke_tool=partial(
-                _async_invoke_arcade_tool,
-                tool_name=tool_name,
-                requires_auth=requires_auth,
-            ),
-            strict_json_schema=False,
-        )
-        tool_functions.append(tool_function)
+        if tools is None or tool["functions"]["name"] in tools:
+            tool_name = tool["function"]["name"]
+            tool_description = tool["function"]["description"]
+            tool_params = tool["function"]["parameters"]
+            requires_auth = auth_spec.get(tool_name, False)
+            tool_function = FunctionTool(
+                name=tool_name,
+                description=tool_description,
+                params_json_schema=tool_params,
+                on_invoke_tool=partial(
+                    _async_invoke_arcade_tool,
+                    tool_name=tool_name,
+                    requires_auth=requires_auth,
+                ),
+                strict_json_schema=False,
+            )
+            tool_functions.append(tool_function)
 
     return tool_functions
