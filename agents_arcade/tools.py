@@ -49,11 +49,26 @@ async def _async_invoke_arcade_tool(
 async def get_arcade_tools(
     client: AsyncArcade, toolkits: list[str], tools: list[str] | None = None
 ) -> list[FunctionTool]:
+    """
+    Asynchronously fetches tool definitions for each toolkit using client.tools.list,
+    and returns a dictionary mapping each tool's name to a boolean indicating whether
+    the tool requires authorization.
+
+    Args:
+        client: AsyncArcade client
+        toolkits: List of toolkit names to get tools from
+        tools: Optional list of specific tool names to include. If None, all tools are included.
+
+    Returns:
+        Tool definitions to add to OpenAI's Agent SDK Agents
+    """
     tool_formats = await client.tools.formatted.list(toolkit=toolkits, format="openai")
     auth_spec = await _get_arcade_tool_definitions(client, toolkits, tools)
 
     tool_functions = []
     for tool in tool_formats.items:
+        if tool["function"]["name"] not in tools:
+            continue
         tool_name = tool["function"]["name"]
         tool_description = tool["function"]["description"]
         tool_params = tool["function"]["parameters"]
