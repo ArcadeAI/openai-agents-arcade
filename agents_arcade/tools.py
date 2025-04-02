@@ -51,8 +51,8 @@ async def get_arcade_tools(
 ) -> list[FunctionTool]:
     """
     Asynchronously fetches tool definitions for each toolkit using client.tools.list,
-    and returns a dictionary mapping each tool's name to a boolean indicating whether
-    the tool requires authorization.
+    and returns a list of FuntionTool definitions that can be passed to OpenAI
+    Agents
 
     Args:
         client: AsyncArcade client
