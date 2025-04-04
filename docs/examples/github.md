@@ -101,12 +101,11 @@ The GitHub toolkit includes tools for:
 
 ### Filtering Tools
 
-If you only need specific GitHub tools, you can filter them:
+If you only need specific GitHub tools, you can include only what you need:
 
 ```python
 tools = await get_arcade_tools(
     client,
-    toolkits=["github"],
     tools=["github_get_repository", "github_list_user_repositories"]
 )
 ```

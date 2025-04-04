@@ -87,7 +87,6 @@ If you want to use only specific tools from a toolkit:
 # Get only specific GitHub tools
 tools = await get_arcade_tools(
     client,
-    toolkits=["github"],
     tools=["github_get_issues", "github_get_repository"]
 )
 ```

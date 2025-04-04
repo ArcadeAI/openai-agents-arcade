@@ -107,7 +107,6 @@ If you only want to include Gmail-related tools and not other Google services:
 ```python
 tools = await get_arcade_tools(
     client,
-    toolkits=["google"],
     tools=[
         "google_gmail_get_messages",
         "google_gmail_send_message",

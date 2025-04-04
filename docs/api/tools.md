@@ -49,7 +49,6 @@ tools = await get_arcade_tools(client, ["github"])
 # Get specific tools
 tools = await get_arcade_tools(
     client,
-    toolkits=["github"],
     tools=["github_get_issues", "github_get_repository"]
 )
 

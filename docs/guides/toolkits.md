@@ -36,13 +36,12 @@ tools = await get_arcade_tools(client, ["github", "google", "news"])
 
 ### Filtering Tools Within a Toolkit
 
-If you only need specific tools from a toolkit, you can filter them:
+If you only need specific tools from a toolkit, you can include only what you need:
 
 ```python
 # Only get specific GitHub tools
 tools = await get_arcade_tools(
     client,
-    toolkits=["github"],
     tools=["github_get_repository", "github_list_user_repositories"]
 )
 ```
