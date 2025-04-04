@@ -1,19 +1,22 @@
 import asyncio
 import json
+import os
 from typing import Any
 
 from arcadepy import AsyncArcade
 
 
-def convert_output_to_json(output: Any) -> str:
-    if isinstance(output, dict) or isinstance(output, list):
-        return json.dumps(output)
-    else:
-        return str(output)
-
-
-async def get_arcade_client() -> AsyncArcade:
-    return AsyncArcade()
+def get_arcade_client(
+    base_url: str = "https://api.arcade.dev",
+    api_key: str = os.getenv("ARCADE_API_KEY", None),
+    **kwargs: dict[str, Any],
+) -> AsyncArcade:
+    """
+    Returns an AsyncArcade client.
+    """
+    if api_key is None:
+        raise ValueError("ARCADE_API_KEY is not set")
+    return AsyncArcade(base_url=base_url, api_key=api_key, **kwargs)
 
 
 async def _get_arcade_tool_formats(
@@ -124,3 +127,10 @@ async def _get_arcade_tool_definitions(
         tool_auth_requirements[tool_name] = requires_auth
 
     return tool_auth_requirements
+
+
+def convert_output_to_json(output: Any) -> str:
+    if isinstance(output, dict) or isinstance(output, list):
+        return json.dumps(output)
+    else:
+        return str(output)

@@ -1,5 +1,6 @@
 import json
 from functools import partial
+from typing import Any
 
 from agents.run_context import RunContextWrapper
 from agents.tool import FunctionTool
@@ -27,10 +28,12 @@ async def _authorize_tool(client: AsyncArcade, context: RunContextWrapper, tool_
 
 
 async def _async_invoke_arcade_tool(
-    context: RunContextWrapper, tool_args: str, tool_name: str, requires_auth: bool
+    context: RunContextWrapper,
+    tool_args: str,
+    tool_name: str,
+    requires_auth: bool,
+    client: AsyncArcade,
 ):
-    client = await get_arcade_client()
-
     args = json.loads(tool_args)
     if requires_auth:
         await _authorize_tool(client, context, tool_name)
@@ -48,10 +51,11 @@ async def _async_invoke_arcade_tool(
 
 
 async def get_arcade_tools(
-    client: AsyncArcade,
+    client: AsyncArcade | None = None,
     tools: list[str] | None = None,
     toolkits: list[str] | None = None,
     raise_on_empty: bool = True,
+    **kwargs: dict[str, Any],
 ) -> list[FunctionTool]:
     """
     Asynchronously fetches tool definitions for each toolkit using client.tools.list,
@@ -63,10 +67,14 @@ async def get_arcade_tools(
         tools: Optional list of specific tool names to include.
         toolkits: Optional list of toolkit names to include all tools from.
         raise_on_empty: Whether to raise an error if no tools or toolkits are provided.
+        kwargs: if a client is not provided, these parameters will initialize it
 
     Returns:
         Tool definitions to add to OpenAI's Agent SDK Agents
     """
+    if not client:
+        client = get_arcade_client(**kwargs)
+
     if not tools and not toolkits:
         if raise_on_empty:
             raise ValueError(
@@ -98,6 +106,7 @@ async def get_arcade_tools(
                 _async_invoke_arcade_tool,
                 tool_name=tool_name,
                 requires_auth=requires_auth,
+                client=client,
             ),
             strict_json_schema=False,
         )

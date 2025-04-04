@@ -113,3 +113,28 @@ Many Arcade tools require user authentication. The authentication flow is manage
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Documentation
+
+The project documentation is available at [docs.arcadeai.dev/agents-arcade](https://docs.arcadeai.dev/agents-arcade/) and includes:
+
+-   Installation instructions
+-   Quickstart guides
+-   API reference
+-   Advanced usage patterns
+-   Toolkit guides
+-   Examples
+
+To build and serve the documentation locally:
+
+```bash
+# Install development dependencies
+pip install -e ".[dev]"
+
+# Serve the documentation
+make serve-docs
+# or
+mkdocs serve
+```
+
+Then visit `http://localhost:8000` in your browser.
