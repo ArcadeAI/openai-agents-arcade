@@ -66,11 +66,11 @@ async def main():
             starting_agent=github_agent,
             input="Star the arcadeai/arcade-ai repo",
             # make sure you pass a UNIQUE user_id for auth
-            context={"user_id": "user@example.comiii"},
+            context={"user_id": "user@example.com"},
         )
         print("Final output:\n\n", result.final_output)
     except AuthorizationError as e:
-        print("Please Login to Github:", e)
+        print("Please Login to GitHub:", e)
 
 
 if __name__ == "__main__":

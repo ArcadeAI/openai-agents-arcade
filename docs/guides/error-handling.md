@@ -51,8 +51,6 @@ async def run_agent():
 For a better user experience, you might want to guide the user through the authorization process and retry the operation once authorized:
 
 ```python
-from arcadepy.auth import wait_for_authorization_completion
-
 async def run_with_authorization():
     client = AsyncArcade()
     user_id = "user@example.com"
@@ -76,11 +74,8 @@ async def run_with_authorization():
         print("Once you've completed authorization, the operation will continue...")
 
         # Wait for the user to complete authorization
-        auth_result = await wait_for_authorization_completion(
-            client,
-            e.result.authorization_id,
-            timeout=300  # 5 minutes
-        )
+        auth_result = await client.auth.wait_for_completion(
+            e.result.authorization_id)
 
         if auth_result.status == "completed":
             print("Authorization successful! Retrying operation...")

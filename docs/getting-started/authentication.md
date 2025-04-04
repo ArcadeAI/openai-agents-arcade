@@ -46,6 +46,11 @@ async def main():
     except AuthorizationError as e:
         # Show the authentication URL to the user
         print("Please login to GitHub:", e)
+
+if __name__ == "__main__":
+    import asyncio
+
+    asyncio.run(main())
 ```
 
 ### Waiting for Authentication
@@ -54,7 +59,6 @@ In some scenarios, you might want to wait for the user to complete the authentic
 
 ```python
 from arcadepy import AsyncArcade
-from arcadepy.auth import wait_for_authorization_completion
 from agents_arcade import get_arcade_tools
 from agents_arcade.errors import AuthorizationError
 
@@ -74,16 +78,18 @@ async def main():
         print(f"Please authorize access at: {auth_url}")
 
         # Wait for the user to complete authorization
-        authorization = await wait_for_authorization_completion(
-            client,
-            e.result.authorization_id,
-            timeout=300  # Wait up to 5 minutes
-        )
+        authorization = await client.wait_for_completion(
+            e.result.authorization_id)
 
         if authorization.status == "completed":
             print("Authorization completed successfully!")
             # Try again with the authorized user
             # ...
+
+if __name__ == "__main__":
+    import asyncio
+
+    asyncio.run(main())
 ```
 
 ## User ID Best Practices

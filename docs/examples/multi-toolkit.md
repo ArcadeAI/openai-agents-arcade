@@ -14,8 +14,11 @@ One of the most powerful features of Agents Arcade is the ability to combine mul
 
 Before running this example, make sure you have:
 
-1. Installed `agents-arcade` (see [Installation](../getting-started/installation.md))
-2. Set the `ARCADE_API_KEY` environment variable or have your API key ready to use
+1. Installed `agents-arcade` (see [Installation](installation.md))
+2. An Arcade API key (sign up at [arcade.dev](https://arcade.dev) if you don't have one)
+3. An [OpenAI API Key](https://platform.openai.com/docs/libraries#create-and-export-an-api-key).
+4. Set the `ARCADE_API_KEY` environment variable or have your API key ready to use
+5. Set the `OPENAI_API_KEY` environment variable or have your API key ready to use
 3. Have access to the GitHub, Google, and Web toolkits in your Arcade subscription
 
 ## Multi-Toolkit Agent
@@ -109,8 +112,6 @@ When running this example for the first time, you'll need to authenticate with m
 For a better user experience, you can implement a more sophisticated authentication flow:
 
 ```python
-from arcadepy.auth import wait_for_authorization_completion
-
 async def run_with_multi_auth():
     client = AsyncArcade()
     user_id = "user@example.com"
@@ -156,10 +157,8 @@ async def run_with_multi_auth():
             print("Waiting for authorization completion...")
 
             # Wait for the user to complete authorization
-            auth_result = await wait_for_authorization_completion(
-                client,
-                e.result.authorization_id,
-                timeout=300  # 5 minutes
+            auth_result = await client.wait_for_completion(
+                e.result.authorization_id
             )
 
             if auth_result.status == "completed":

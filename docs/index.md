@@ -29,6 +29,18 @@ Agents Arcade connects OpenAI Agents to Arcade's extensive collection of tools a
 pip install agents-arcade
 ```
 
+## Requirements 
+
+You need an [Arcade API Key](https://docs.arcade.dev/home/api-keys), and also an
+[OpenAI API Key](https://platform.openai.com/docs/libraries#create-and-export-an-api-key).
+Make sure they're available
+
+
+```bash
+export ARCADE_API_KEY=...
+export OPENAI_API_KEY=...
+```
+
 ## Quick Example
 
 ```python
@@ -62,6 +74,11 @@ async def main():
         print("Final output:\n\n", result.final_output)
     except AuthorizationError as e:
         print("Please Login to Github:", e)
+
+if __name__ == "__main__":
+    import asyncio
+
+    asyncio.run(main())
 ```
 
 ## Resources
