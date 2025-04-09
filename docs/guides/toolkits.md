@@ -28,10 +28,10 @@ To use a toolkit with your agent, you need to include it when fetching tools:
 from agents_arcade import get_arcade_tools
 
 # Use a single toolkit
-tools = await get_arcade_tools(client, ["github"])
+tools = await get_arcade_tools(client, toolkits=["github"])
 
 # Use multiple toolkits
-tools = await get_arcade_tools(client, ["github", "google", "news"])
+tools = await get_arcade_tools(client, toolkits=["github", "google", "news"])
 ```
 
 ### Filtering Tools Within a Toolkit
@@ -62,7 +62,7 @@ The GitHub toolkit allows agents to interact with GitHub repositories, issues, p
 ### Example GitHub Usage
 
 ```python
-tools = await get_arcade_tools(client, ["github"])
+tools = await get_arcade_tools(client, toolkits=["github"])
 agent = Agent(
     name="GitHub agent",
     instructions="You are a helpful assistant that can assist with GitHub API calls.",
@@ -86,7 +86,7 @@ The Google toolkit provides access to Google services like Gmail, Drive, Calenda
 ### Example Google Usage
 
 ```python
-tools = await get_arcade_tools(client, ["google"])
+tools = await get_arcade_tools(client, toolkits=["google"])
 agent = Agent(
     name="Google Assistant",
     instructions="You are a helpful assistant that can work with Google services.",
@@ -109,7 +109,7 @@ The LinkedIn toolkit allows agents to interact with LinkedIn profiles, posts, an
 ### Example LinkedIn Usage
 
 ```python
-tools = await get_arcade_tools(client, ["linkedin"])
+tools = await get_arcade_tools(client, toolkits=["linkedin"])
 agent = Agent(
     name="LinkedIn Assistant",
     instructions="You are a helpful assistant for LinkedIn interactions.",
@@ -131,7 +131,7 @@ The Web toolkit provides tools for searching the web and interacting with web co
 ### Example Web Usage
 
 ```python
-tools = await get_arcade_tools(client, ["web"])
+tools = await get_arcade_tools(client, toolkits=["web"])
 agent = Agent(
     name="Web Assistant",
     instructions="You are a helpful assistant for web searches and browsing.",
@@ -145,7 +145,7 @@ agent = Agent(
 One of the most powerful features of `agents-arcade` is the ability to combine multiple toolkits in a single agent:
 
 ```python
-tools = await get_arcade_tools(client, ["github", "google", "web"])
+tools = await get_arcade_tools(client, toolkits=["github", "google", "web"])
 agent = Agent(
     name="Super Assistant",
     instructions="""You are a versatile assistant that can:

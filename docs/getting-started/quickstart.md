@@ -29,7 +29,7 @@ async def main():
     client = AsyncArcade()
 
     # Get GitHub tools from Arcade
-    tools = await get_arcade_tools(client, ["github"])
+    tools = await get_arcade_tools(client, toolkits=["github"])
 
     # Create an OpenAI agent with the GitHub tools
     github_agent = Agent(
@@ -75,10 +75,10 @@ You can use any of the available Arcade toolkits by specifying them in the `get_
 
 ```python
 # Use the Google toolkit
-tools = await get_arcade_tools(client, ["google"])
+tools = await get_arcade_tools(client, toolkits=["google"])
 
 # Use multiple toolkits
-tools = await get_arcade_tools(client, ["github", "google", "linkedin"])
+tools = await get_arcade_tools(client, toolkits=["github", "google", "linkedin"])
 ```
 
 ## Specifying Specific Tools

@@ -29,7 +29,7 @@ async def main():
     client = AsyncArcade()
 
     # Get Google tools from Arcade (includes Gmail)
-    tools = await get_arcade_tools(client, ["google"])
+    tools = await get_arcade_tools(client, toolkits=["google"])
 
     # Create an OpenAI agent with Google tools
     google_agent = Agent(
@@ -140,7 +140,7 @@ email_agent = Agent(
 You can combine Google tools with other Arcade toolkits for a more versatile agent:
 
 ```python
-tools = await get_arcade_tools(client, ["google", "github", "linkedin"])
+tools = await get_arcade_tools(client, toolkits=["google", "github", "linkedin"])
 ```
 
 This creates an agent that can handle emails, GitHub tasks, and LinkedIn interactions in a single conversation.

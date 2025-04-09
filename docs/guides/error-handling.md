@@ -24,7 +24,7 @@ from agents_arcade.errors import AuthorizationError
 
 async def run_agent():
     client = AsyncArcade()
-    tools = await get_arcade_tools(client, ["github"])
+    tools = await get_arcade_tools(client, toolkits=["github"])
 
     agent = Agent(
         name="GitHub Agent",
@@ -56,7 +56,7 @@ async def run_with_authorization():
     user_id = "user@example.com"
 
     try:
-        tools = await get_arcade_tools(client, ["github"])
+        tools = await get_arcade_tools(client, toolkits=["github"])
         agent = Agent(
             name="GitHub Agent",
             instructions="You are a helpful GitHub assistant.",
@@ -94,7 +94,7 @@ from agents_arcade.errors import ToolError, AuthorizationError
 
 async def run_agent_safely():
     try:
-        tools = await get_arcade_tools(client, ["github"])
+        tools = await get_arcade_tools(client, toolkits=["github"])
         agent = Agent(
             name="GitHub Agent",
             instructions="You are a helpful GitHub assistant.",
@@ -136,7 +136,7 @@ async def run_with_comprehensive_error_handling():
 
         # Get tools
         try:
-            tools = await get_arcade_tools(client, ["github", "google"])
+            tools = await get_arcade_tools(client, toolkits=["github", "google"])
         except ValueError as e:
             return f"Configuration error: {e}"
         except ArcadeError as e:

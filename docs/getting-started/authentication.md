@@ -26,7 +26,7 @@ from agents_arcade.errors import AuthorizationError
 
 async def main():
     client = AsyncArcade()
-    tools = await get_arcade_tools(client, ["github"])
+    tools = await get_arcade_tools(client, toolkits=["github"])
 
     github_agent = Agent(
         name="GitHub agent",
@@ -68,7 +68,8 @@ async def main():
 
     try:
         # Try to use a tool that requires auth
-        tools = await get_arcade_tools(client, ["github"])
+        tools = await get_arcade_tools(client, toolkits=["github"])
+
         # Attempt to run your agent...
     except AuthorizationError as e:
         # Get the auth URL from the error

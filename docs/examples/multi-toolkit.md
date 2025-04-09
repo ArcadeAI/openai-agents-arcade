@@ -128,7 +128,7 @@ async def run_with_multi_auth():
         try:
             # Get tools for services not yet authorized
             toolkits = [tk for tk, status in auth_status.items() if not status]
-            tools = await get_arcade_tools(client, toolkits)
+            tools = await get_arcade_tools(client, toolkits=toolkits)
 
             # Create agent with the tools
             agent = Agent(
@@ -168,7 +168,7 @@ async def run_with_multi_auth():
                 print(f"{toolkit} authorization failed or timed out.")
 
     # Now create the fully authorized agent
-    tools = await get_arcade_tools(client, list(auth_status.keys()))
+    tools = await get_arcade_tools(client, toolkits=list(auth_status.keys()))
     return Agent(
         name="Multi-service Assistant",
         instructions="You are a helpful assistant with multiple service capabilities.",

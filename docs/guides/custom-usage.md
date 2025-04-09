@@ -18,7 +18,7 @@ client = AsyncArcade(
 )
 
 # Get tools using the custom client
-tools = await get_arcade_tools(client, ["github"])
+tools = await get_arcade_tools(client, toolkits=["github"])
 ```
 
 Alternatively, you can pass configuration directly to `get_arcade_tools`:
@@ -41,7 +41,7 @@ You can create multiple specialized agents with different tools:
 from agents import Agent, Runner, Message
 
 # Create specialized agents
-github_tools = await get_arcade_tools(client, ["github"])
+github_tools = await get_arcade_tools(client, toolkits=["github"])
 github_agent = Agent(
     name="GitHub Specialist",
     instructions="You are a GitHub expert. Help users with GitHub tasks.",
@@ -49,7 +49,7 @@ github_agent = Agent(
     tools=github_tools,
 )
 
-google_tools = await get_arcade_tools(client, ["google"])
+google_tools = await get_arcade_tools(client, toolkits=["google"])
 google_agent = Agent(
     name="Google Workspace Specialist",
     instructions="You are a Google Workspace expert. Help users with Gmail, Drive, etc.",
@@ -89,7 +89,7 @@ from agents.tool import FunctionTool
 from functools import partial
 
 # Get the original tools
-original_tools = await get_arcade_tools(client, ["github"])
+original_tools = await get_arcade_tools(client, toolkits=["github"])
 
 # Create enhanced versions with logging and error handling
 enhanced_tools = []

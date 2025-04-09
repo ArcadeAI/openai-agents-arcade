@@ -44,7 +44,7 @@ from arcadepy import AsyncArcade
 
 # Get all tools from a specific toolkit
 client = AsyncArcade()
-tools = await get_arcade_tools(client, ["github"])
+tools = await get_arcade_tools(client, toolkits=["github"])
 
 # Get specific tools
 tools = await get_arcade_tools(
