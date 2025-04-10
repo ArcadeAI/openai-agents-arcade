@@ -2,10 +2,6 @@ name: Publish openai-agents-arcade
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: "Version to release (leave empty to use version from pyproject.toml)"
-        required: false
 
 jobs:
   test-and-publish:
@@ -19,9 +15,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -37,30 +30,20 @@ jobs:
           make sync
           make lint
 
-      - name: Set version if provided
-        if: inputs.version != ''
-        working-directory: .
+      - name: Set version
         run: |
-          uv bump ${{ inputs.version }}
+          VERSION=$(grep -m1 '^version' pyproject.toml | cut -d\" -f2)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Publish to PyPI
         id: publish
         working-directory: .
         run: |
-          uv build
-          export PYPI_TOKEN=${{ secrets.PYPI_TOKEN }}
-          # Extract version from pyproject.toml using uv and save it
-          VERSION=$(uv version --short)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          if uv publish --skip-existing 2>&1 | grep -q "File exists. Skipping"; then
-            echo "Version already exists on PyPI. Skipping publish."
-            echo "skip_publish=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip_publish=false" >> $GITHUB_OUTPUT
-          fi
+          uv build | tee build.log
+          uv publish --token ${{ secrets.PYPI_TOKEN }}
 
       - name: Send status to Slack
-        if: steps.publish.outputs.skip_publish != 'true'
+        if: always()
         uses: slackapi/slack-github-action@v2.0.0
         with:
           webhook: ${{ secrets.PACKAGE_RELEASE_SLACK_WEBHOOK_URL }}
