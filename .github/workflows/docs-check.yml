@@ -16,15 +16,13 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-in-project: true
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
       - name: Build documentation
         run: |
-          poetry install --with dev
-          poetry run mkdocs build --strict 2>&1 | tee build-log.txt
+          make sync
+          uv run mkdocs build --strict 2>&1 | tee build-log.txt
 
       - name: Check for warnings
         run: |

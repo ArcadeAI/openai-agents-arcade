@@ -1,6 +1,6 @@
 [project]
 name = "agents-arcade"
-version = "0.0.2"
+version = "0.0.3"
 description = "Arcade Integration for OpenAI Agents"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -29,18 +29,20 @@ classifiers = [
 Homepage = "https://github.com/ArcadeAI/agents-arcade"
 Repository = "https://github.com/ArcadeAI/agents-arcade"
 
-[tool.poetry.group.dev.dependencies]
-mypy = "*"
-ruff = "0.9.2"
-pytest = "*"
-pytest-asyncio = "*"
-pytest-mock = ">=3.14.0"
-rich = "*"
-mkdocs = ">=1.6.0"
-mkdocs-material = ">=9.6.0"
-mkdocstrings = {extras = ["python"], version = ">=0.28.0"}
-coverage = ">=7.6.12"
-playwright = "==1.50.0"
+[dependency-groups]
+dev = [
+    "mypy",
+    "ruff==0.9.2",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-mock>=3.14.0",
+    "rich",
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.6.0",
+    "mkdocstrings[python]>=0.28.0",
+    "coverage>=7.6.12",
+    "playwright==1.50.0",
+]
 
 [build-system]
 requires = ["hatchling"]
