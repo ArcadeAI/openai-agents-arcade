@@ -20,12 +20,11 @@ jobs:
         uses: snok/install-poetry@v1
         with:
           virtualenvs-in-project: true
-      - name: Install dependencies
-        run: |
-          poetry install --all-extras
 
       - name: Build documentation
-        run: mkdocs build --strict 2>&1 | tee build-log.txt
+        run: |
+          poetry install --with dev
+          poetry run mkdocs build --strict 2>&1 | tee build-log.txt
 
       - name: Check for warnings
         run: |

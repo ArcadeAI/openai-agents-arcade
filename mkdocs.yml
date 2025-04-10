@@ -46,6 +46,9 @@ plugins:
             show_root_heading: true
             heading_level: 3
 
+exclude_docs: |
+  README.md
+
 nav:
   - Home: index.md
   - Getting Started:

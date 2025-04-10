@@ -15,7 +15,7 @@ To build the documentation locally:
 
 ```bash
 # Install development dependencies if you haven't already
-pip install -e ".[dev]"
+poetry install --with dev
 
 # Build the docs
 mkdocs build
