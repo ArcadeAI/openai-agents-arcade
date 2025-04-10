@@ -14,7 +14,7 @@ One of the most powerful features of Agents Arcade is the ability to combine mul
 
 Before running this example, make sure you have:
 
-1. Installed `agents-arcade` (see [Installation](installation.md))
+1. Installed `agents-arcade` (see [Installation](../getting-started/installation.md))
 2. An Arcade API key (sign up at [arcade.dev](https://arcade.dev) if you don't have one)
 3. An [OpenAI API Key](https://platform.openai.com/docs/libraries#create-and-export-an-api-key).
 4. Set the `ARCADE_API_KEY` environment variable or have your API key ready to use

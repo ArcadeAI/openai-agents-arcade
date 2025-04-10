@@ -27,7 +27,7 @@ jobs:
           virtualenvs-in-project: true
       - name: Install dependencies
         run: |
-          poetry install --all-extras
+          poetry install --with dev
 
       - name: Deploy documentation
         run: mkdocs gh-deploy --force

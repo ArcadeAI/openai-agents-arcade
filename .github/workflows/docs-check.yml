@@ -22,7 +22,7 @@ jobs:
           virtualenvs-in-project: true
       - name: Install dependencies
         run: |
-          poetry install --all-extras
+          poetry install --with dev
 
       - name: Build documentation
         run: mkdocs build --strict 2>&1 | tee build-log.txt
