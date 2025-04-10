@@ -1,6 +1,6 @@
 .PHONY: sync
 sync:
-	uv sync --all-extras --all-packages
+	uv sync --all-extras --all-packages --group dev
 
 .PHONY: format
 format:
