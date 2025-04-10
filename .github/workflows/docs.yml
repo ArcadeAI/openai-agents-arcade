@@ -25,9 +25,8 @@ jobs:
         uses: snok/install-poetry@v1
         with:
           virtualenvs-in-project: true
-      - name: Install dependencies
-        run: |
-          poetry install --with dev
 
       - name: Deploy documentation
-        run: mkdocs gh-deploy --force
+        run: |
+          poetry install --with dev
+          mkdocs gh-deploy --force
