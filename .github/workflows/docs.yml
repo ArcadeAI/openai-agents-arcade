@@ -29,4 +29,4 @@ jobs:
       - name: Deploy documentation
         run: |
           poetry install --with dev
-          mkdocs gh-deploy --force
+          poetry run mkdocs gh-deploy --force
