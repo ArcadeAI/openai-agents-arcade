@@ -51,7 +51,7 @@ async def main():
     client = AsyncArcade()
     # Use the "github" toolkit for this example
     # You can use other toolkits like "google", "linkedin", "x", etc.
-    tools = await get_arcade_tools(client, ["github"])
+    tools = await get_arcade_tools(client, toolkits=["github"])
 
     # Create an agent that can use the github toolkit
     github_agent = Agent(
@@ -66,11 +66,11 @@ async def main():
             starting_agent=github_agent,
             input="Star the arcadeai/arcade-ai repo",
             # make sure you pass a UNIQUE user_id for auth
-            context={"user_id": "user@example.comiii"},
+            context={"user_id": "user@example.com"},
         )
         print("Final output:\n\n", result.final_output)
     except AuthorizationError as e:
-        print("Please Login to Github:", e)
+        print("Please Login to GitHub:", e)
 
 
 if __name__ == "__main__":
@@ -113,3 +113,28 @@ Many Arcade tools require user authentication. The authentication flow is manage
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Documentation
+
+The project documentation is available at [docs.arcadeai.dev/agents-arcade](https://docs.arcadeai.dev/agents-arcade/) and includes:
+
+-   Installation instructions
+-   Quickstart guides
+-   API reference
+-   Advanced usage patterns
+-   Toolkit guides
+-   Examples
+
+To build and serve the documentation locally:
+
+```bash
+# Install development dependencies
+pip install -e ".[dev]"
+
+# Serve the documentation
+make serve-docs
+# or
+mkdocs serve
+```
+
+Then visit `http://localhost:8000` in your browser.

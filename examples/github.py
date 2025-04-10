@@ -9,7 +9,7 @@ async def main():
     client = AsyncArcade()
     # Use the "github" toolkit for this example
     # You can use other toolkits like "google", "linkedin", "x", etc.
-    tools = await get_arcade_tools(client, ["github"])
+    tools = await get_arcade_tools(client, toolkits=["github"])
 
     # Create an agent that can use the github toolkit
     github_agent = Agent(

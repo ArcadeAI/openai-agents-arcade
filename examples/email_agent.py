@@ -7,7 +7,7 @@ from agents_arcade.errors import AuthorizationError
 
 async def main():
     client = AsyncArcade()
-    tools = await get_arcade_tools(client, ["google"])
+    tools = await get_arcade_tools(client, toolkits=["google"])
 
     google_agent = Agent(
         name="Google agent",

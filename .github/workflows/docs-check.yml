@@ -1,0 +1,35 @@
+name: Documentation Check
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - ".github/workflows/docs*.yml"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ".[dev]"
+
+      - name: Build documentation
+        run: mkdocs build --strict 2>&1 | tee build-log.txt
+
+      - name: Check for warnings
+        run: |
+          if grep -q "WARNING" build-log.txt; then
+            echo "Documentation build produced warnings:"
+            cat build-log.txt | grep "WARNING"
+            exit 1
+          else
+            echo "Documentation build completed successfully without warnings."
+          fi
