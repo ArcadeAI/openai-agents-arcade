@@ -33,14 +33,16 @@ jobs:
           make sync
           make lint
 
+      - name: Set version
+        run: |
+          VERSION=$(grep -m1 '^version' pyproject.toml | cut -d\" -f2)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Publish to PyPI
         id: publish
         working-directory: .
         run: |
           uv build | tee build.log
-          VERSION=$(grep -m 1 -Eo 'v?[0-9]+\.[0-9]+\.[0-9]+' build.log | sed 's/^v//')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Publishing version $VERSION to PyPI"
           uv publish --token ${{ secrets.PYPI_TOKEN }}
 
       - name: Send status to Slack
