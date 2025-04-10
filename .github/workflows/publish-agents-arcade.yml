@@ -31,12 +31,11 @@ jobs:
           python-version: "3.9"
           cache: "pip"
 
-      - name: Test openai-agents-arcade
+      - name: Test openai-agents-arcade # TODO: add `make tests` when we have tests
         working-directory: .
         run: |
           make sync
           make lint
-          make tests
 
       - name: Set version if provided
         if: inputs.version != ''
