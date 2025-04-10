@@ -1,9 +1,6 @@
 name: Publish openai-agents-arcade
 
 on:
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:

@@ -1,6 +1,6 @@
 [project]
 name = "agents-arcade"
-version = "0.0.3"
+version = "0.0.4"
 description = "Arcade Integration for OpenAI Agents"
 readme = "README.md"
 requires-python = ">=3.9"
