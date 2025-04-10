@@ -41,19 +41,18 @@ jobs:
         if: inputs.version != ''
         working-directory: .
         run: |
-          poetry version ${{ inputs.version }}
+          uv bump ${{ inputs.version }}
 
       - name: Publish to PyPI
         id: publish
         working-directory: .
         run: |
-          poetry build
-          # Extract version from pyproject.toml using poetry and save it
-          VERSION=$(poetry version -s)
+          uv build
+          export PYPI_TOKEN=${{ secrets.PYPI_TOKEN }}
+          # Extract version from pyproject.toml using uv and save it
+          VERSION=$(uv version --short)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-          # Attempt to publish the toolkit to PyPI. Skip if the version already exists
-          if poetry publish --skip-existing 2>&1 | grep -q "File exists. Skipping"; then
+          if uv publish --skip-existing 2>&1 | grep -q "File exists. Skipping"; then
             echo "Version already exists on PyPI. Skipping publish."
             echo "skip_publish=true" >> $GITHUB_OUTPUT
           else
