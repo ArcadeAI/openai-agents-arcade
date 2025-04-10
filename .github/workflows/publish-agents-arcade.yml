@@ -37,7 +37,7 @@ jobs:
         working-directory: .
         run: |
           uv build | tee build.log
-          VERSION=$(grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' build.log | head -n1)
+          VERSION=$(grep -Eo 'v?[0-9]+\.[0-9]+\.[0-9]+' build.log | head -n1 | sed 's/^v//')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Publishing version $VERSION to PyPI"
           uv publish --token ${{ secrets.PYPI_TOKEN }}
