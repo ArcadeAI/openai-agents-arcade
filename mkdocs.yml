@@ -48,7 +48,6 @@ plugins:
 
 exclude_docs: |
   README.md
-
 nav:
   - Home: index.md
   - Getting Started:
